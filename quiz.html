@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdTech Quiz</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url("https://img.myloview.pl/fototapety/abstract-pastel-pink-and-blue-holo-holographic-blur-vertical-background-design-400-244333192.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+        }
+        .start-btn {
+            background: #ae275b;
+            color: white;
+            padding: 15px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .start-btn:hover {
+            background: #eb6196;
+        }
+        @keyframes glitter {
+    0% { border-image-source: linear-gradient(45deg, hotpink, gold, cyan, hotpink); }
+    25% { border-image-source: linear-gradient(45deg, gold, cyan, hotpink, gold); }
+    50% { border-image-source: linear-gradient(45deg, cyan, hotpink, gold, cyan); }
+    75% { border-image-source: linear-gradient(45deg, hotpink, gold, cyan, hotpink); }
+    100% { border-image-source: linear-gradient(45deg, gold, cyan, hotpink, gold); }
+}
+
+.container {
+    background: rgb(237, 244, 220);
+    padding: 30px;
+    border-width: 5px; 
+    border-style: solid;
+    border-image-slice: 1;
+    animation: glitter 2s infinite linear; 
+}
+
+.small-text {
+            font-size: 12px;
+            color: #555;
+            display: block;
+            margin-top: 12px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="welcome-screen" class="container">
+        <h2>Welcome to the AdTech Quiz!</h2>
+        <p>🌟🚀💥</p>
+        <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+        <span class="small-text">New to AdTech? Check out <span id="hidden-text">The AdTech book by Clearcode</span></span>
+        <a id="hidden-link" class="hidden-link" href="https://adtechbook.clearcode.cc/" target="_blank">AdTech Book</a>
+    </div>
+
+    <script>
+        function startQuiz() {
+            window.location.href = 'adtechquiz.html';
+        }
+
+        
+    </script>
+</body>
+</html>

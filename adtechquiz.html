@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <title>AdTech Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url("https://img.myloview.pl/fototapety/abstract-pastel-pink-and-blue-holo-holographic-blur-vertical-background-design-400-244333192.jpg");
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 100vh;
+            padding: 20px;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .quiz-container {
+            background: rgb(237, 244, 220);
+            max-width: 600px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid hotpink;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: left;
+            margin-top: 15px;
+        }
+
+        .options {
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .option {
+            display: block;
+            padding: 10px;
+            margin: 5px 0;
+            background: #8b4a52;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .option:hover {
+            background: #ae275b;
+            transform: scale(1.05);
+        }
+
+        .selected {
+            background: #e6465b !important;
+        }
+
+        .submit-btn, .next-btn {
+            background: #300101;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .submit-btn:hover, .next-btn:hover {
+            background: #414041;
+        }
+
+        #score {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #e74c3c;
+        }
+
+        #timer {
+            font-size: 18px;
+            color: rgb(6, 47, 63);
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <div id="timer">⏳ Time Left: 120s</div>
+        <form id="quizForm">
+            
+            <div class="questions-container">
+                <div class="question-block">
+                    <div class="question">1. What does DSP stand for in AdTech?</div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption('q1', this)">Data Science Platform</div>
+                        <div class="option" onclick="selectOption('q1', this, true)">Demand-Side Platform</div>
+                        <div class="option" onclick="selectOption('q1', this)">Digital Sales Processor</div>
+                        <div class="option" onclick="selectOption('q1', this)">Dynamic Server Protocol</div>
+                    </div>
+                </div>
+
+                <div class="question-block hidden">
+                    <div class="question">2. What is a Data Management Platform (DMP) primarily used for?</div> 
+                    <div class="options">
+                        <div class="option" onclick="selectOption('q2', this, true)">Storing and analyzing audience data</div>
+                        <div class="option" onclick="selectOption('q2', this)">Processing real-time ad transactions</div>
+                        <div class="option" onclick="selectOption('q2', this)">Managing advertising budgets</div>
+                        <div class="option" onclick="selectOption('q2', this)">Preventing ad fraud</div>
+                    </div>
+                </div>
+                <div class="question-block hidden">
+                <div class="question">3. Which company served the first online banner ad?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption('q3', this)">Google</div>
+                    <div class="option" onclick="selectOption('q3', this)">Yahoo</div>
+                    <div class="option" onclick="selectOption('q3', this, true)">AT&T</div>
+                    <div class="option" onclick="selectOption('q3', this)">Microsoft</div>
+                </div></div>
+                <div class="question-block hidden">
+                <div class="question">4. Which metric measures how many users clicked on an ad after seeing it?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption('q4', this)">CPM</div>
+                    <div class="option" onclick="selectOption('q4', this)">CPA</div>
+                    <div class="option" onclick="selectOption('q4', this, true)">CTR</div>
+                    <div class="option" onclick="selectOption('q4', this)">CPC</div>
+                </div></div>
+                <div class="question-block hidden">
+                <div class="question">5. What is the role of a Supply-Side Platform (SSP)?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption('q5', this)">Creates personalized ad content</div>
+                    <div class="option" onclick="selectOption('q5', this)">Measures campaign performance</div>
+                    <div class="option" onclick="selectOption('q5', this)">Helps advertisers buy ad space</div>
+                    <div class="option" onclick="selectOption('q5', this, true)">Helps publishers sell their ad inventory</div>
+                </div>
+            </div>
+            <div class="question-block hidden">
+                <div class="question">6. What does "Programmatic" refer to in digital advertising?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption('q6', this)">A type of traditional TV advertising</div>
+                    <div class="option" onclick="selectOption('q6', this, true)">The use of technology, algorithms, and data to automate online media buying and selling</div>
+                    <div class="option" onclick="selectOption('q6', this)">The manual buying and selling of online media between humans</div>
+                    <div class="option" onclick="selectOption('q6', this)">A social media marketing strategy</div>
+                </div></div>
+                <div class="question-block hidden">
+                <div class="question">7. If programmatic advertising were a superhero, what would its power be?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption('q7', this, true)">Mind-reading your shopping habits</div>
+                    <div class="option" onclick="selectOption('q7', this)">Shooting discount coupons at people</div>
+                    <div class="option" onclick="selectOption('q7', this)">Teleporting ads to your devices instantly</div>
+                    <div class="option" onclick="selectOption('q7', this)">Controlling the internet</div>
+                </div></div>
+                <div class="question-block hidden">
+                <div class="question">8. What does the term “viewability” mean in digital advertising?</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption('q8', this, true)">The percentage of an ad that appears on screen for a user</div>
+                    <div class="option" onclick="selectOption('q8', this)">The time an ad spends on a webpage</div>
+                    <div class="option" onclick="selectOption('q8', this)">The total number of impressions an ad gets</div>
+                    <div class="option" onclick="selectOption('q8', this)">The number of clicks an ad receives</div>
+                </div></div>
+                <div class="question-block hidden">
+                <div class="question">9. Real-Time Bidding (RTB) is like:</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption('q9', this)">A slow and steady negotiation process between brands and publishers</div>
+                    <div class="option" onclick="selectOption('q9', this)">A lucky draw where the highest bidder always wins</div>
+                    <div class="option" onclick="selectOption('q9', this)">A high-stakes poker game where advertisers bluff their way to ad placements</div>
+                    <div class="option" onclick="selectOption('q9', this, true)">A lightning-fast auction where ad spaces are sold in the time it takes to blink</div>
+                </div></div>
+                <div class="question-block hidden">
+                <div class="question">10. User Visits a Website/App → Ad Request Sent to Ad Exchange → ??? (Missing Phase) → Winning Ad Served to User</div>
+                <div class="options">
+                    <div class="option" onclick="selectOption('q10', this)">Ad is Manually Selected by Publisher</div>
+                    <div class="option" onclick="selectOption('q10', this)">User Clicks on the Ad</div>
+                    <div class="option" onclick="selectOption('q10', this)">Advertiser Creates Ad Campaign</div>
+                    <div class="option" onclick="selectOption('q10', this, true)">Real-Time Bidding Takes Place</div>
+                </div></div>
+                
+                
+            </div>
+
+            <button type="button" class="next-btn" onclick="nextQuestion()">Next</button>
+            <button type="button" class="submit-btn hidden" onclick="calculateScore()">Submit</button>
+            <button id="tryAgainBtn" class="submit-btn hidden" onclick="resetQuiz()">Try Again</button>
+        </form>
+        <div id="score"></div>
+    </div>
+
+    <script>
+       let timeLeft = 120; 
+let timerInterval;
+let score = 0;
+let currentQuestion = 0;
+let questions = document.querySelectorAll(".question-block");
+let totalQuestions = questions.length;
+let progress = 0;
+
+let selectedAnswers = {};
+
+function startTimer() {
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    calculateScore();
+                } else {
+                    timeLeft--;
+                    document.getElementById("timer").innerText = `⏳ Time Left: ${timeLeft}s`;
+                }
+            }, 1000);
+        }
+
+function selectOption(question, element, isCorrect = false) {
+    let options = element.parentElement.children;
+    for (let option of options) {
+        option.classList.remove("selected");
+    }
+    element.classList.add("selected");
+
+    selectedAnswers[question] = isCorrect;
+
+    progress += 100 / totalQuestions;
+    document.getElementById("progress").style.width = `${progress}%`;
+}
+
+function nextQuestion() {
+    if (currentQuestion < totalQuestions - 1) {
+        questions[currentQuestion].classList.add("hidden");
+        currentQuestion++;
+        questions[currentQuestion].classList.remove("hidden");
+    }
+
+    if (currentQuestion === totalQuestions - 1) {
+        document.querySelector(".next-btn").classList.add("hidden");
+        document.querySelector(".submit-btn").classList.remove("hidden");
+    }
+}
+
+function launchConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+function calculateScore() {
+    clearInterval(timerInterval);
+
+    score = Object.values(selectedAnswers).filter(isCorrect => isCorrect).length;
+
+    let message = score === totalQuestions ? "🎉 Amazing! You got a perfect score! 🎉" : `You scored ${score} out of ${totalQuestions}!`;
+    launchConfetti();
+    document.getElementById("score").innerHTML = `<p>${message}</p>`;
+    document.getElementById("tryAgainBtn").classList.remove("hidden");
+}
+
+function resetQuiz() {
+            score = 0;
+            timeLeft = 30;
+            progress = 0;
+            document.getElementById("progress").style.width = "0%";
+            document.getElementById("score").innerText = "";
+            document.getElementById("tryAgainBtn").classList.add("hidden");
+            document.querySelector(".submit-btn").classList.add("hidden");
+            document.querySelector(".next-btn").classList.remove("hidden");
+
+            questions.forEach((q, i) => q.classList.toggle("hidden", i !== 0));
+            currentQuestion = 0;
+            startTimer();
+        }
+
+        startTimer();
+
+    </script>
+
+</body>
+</html>
